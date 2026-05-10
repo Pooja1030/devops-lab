@@ -1,0 +1,23 @@
+# Docker volumes/data
+grafana_data/
+prometheus_data/
+jenkins_data/
+
+# Environment files
+.env
+*.env
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# Node modules
+node_modules/
+
+# Jenkins secrets
+secrets/
+
+# Temporary files
+tmp/
