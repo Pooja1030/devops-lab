@@ -58,7 +58,3 @@ Grafana Dashboards + Alerting
 ```bash
 docker compose up -d
 ```
-
-## Screenshots
-
-(Add screenshots here)
