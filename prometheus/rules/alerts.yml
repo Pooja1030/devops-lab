@@ -25,3 +25,59 @@ groups:
           severity: critical
         annotations:
           summary: "Container is Down"
+
+      - alert: BackendHighCPU
+        expr: rate(container_cpu_usage_seconds_total{name="ecommerce_backend"}[1m]) * 100 > 70
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ecommerce Backend High CPU"
+
+      - alert: BackendHighMemory
+        expr: container_memory_usage_bytes{name="ecommerce_backend"} / 1024 / 1024 > 500
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ecommerce Backend High Memory"
+
+      - alert: MongoDown
+        expr: absent(container_memory_usage_bytes{name="ecommerce_mongo"})
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "MongoDB Container Down"
+
+      - alert: FrontendDown
+        expr: absent(container_memory_usage_bytes{name="ecommerce_frontend"})
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Frontend Container Down"
+
+      - alert: NginxDown
+        expr: absent(container_memory_usage_bytes{name="ecommerce_nginx"})
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Nginx Container Down"
+
+      - alert: WebsiteDown
+        expr: probe_success == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Website is Down"
+
+      - alert: HighResponseTime
+        expr: probe_duration_seconds > 2
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Website Response Time"

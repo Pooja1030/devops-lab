@@ -23,14 +23,19 @@ services:
     restart: unless-stopped
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:latest
     container_name: grafana
     ports:
       - "3001:3000"
+
+    environment:
+      GF_INSTALL_PLUGINS: grafana-image-renderer
+
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/dashboards:/var/lib/grafana/dashboards
       - ./grafana/provisioning:/etc/grafana/provisioning
+
     restart: unless-stopped
 
   node-exporter:
@@ -51,6 +56,17 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker:/var/lib/docker:ro
     privileged: true
+    restart: unless-stopped
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    container_name: blackbox-exporter
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./blackbox/blackbox.yml:/config/blackbox.yml
+    command:
+      - '--config.file=/config/blackbox.yml'
     restart: unless-stopped
 
 volumes:
