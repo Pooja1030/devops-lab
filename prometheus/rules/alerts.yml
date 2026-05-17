@@ -81,3 +81,19 @@ groups:
           severity: warning
         annotations:
           summary: "High Website Response Time"
+
+      - alert: JenkinsDown
+        expr: absent(container_last_seen{name=~".*jenkins.*"})
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Jenkins Container Down"
+
+      - alert: JenkinsHighMemory
+        expr: container_memory_usage_bytes{name=~".*jenkins.*"} > 1000000000
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Jenkins High Memory Usage"

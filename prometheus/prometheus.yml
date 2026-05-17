@@ -32,6 +32,7 @@ scrape_configs:
           - http://172.17.0.1:3000
           - http://172.17.0.1:5000
           - http://172.17.0.1
+          - http://jenkins:8080
 
     relabel_configs:
       - source_labels: [__address__]
